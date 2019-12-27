@@ -9,19 +9,21 @@ import java.util.Set;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-public class Objective extends AbstractAuditingEntity {
+public class GoalObjectives extends AbstractAuditingEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String title;
-
-    private String criteria;
-
-    private int allocation;
+    @ManyToOne
+    @JoinColumn
+    private Goal goal;
 
     @ManyToOne
-    @JoinColumn(name = "content_id")
-    private Content content;
+    @JoinColumn
+    private Lesson lesson;
+
+    @ManyToMany
+    @JoinTable
+    private Set<Objective> objectives;
 }

@@ -1,25 +1,20 @@
-package com.aurel.lms.model;
+package com.aurel.lms.model.page;
 
+import com.aurel.lms.model.AbstractAuditingEntity;
+import com.aurel.lms.model.Content;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Data
-@Entity
+@MappedSuperclass
 @EqualsAndHashCode(callSuper = true)
-public class Objective extends AbstractAuditingEntity {
+public class Page extends AbstractAuditingEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    private String title;
-
-    private String criteria;
-
-    private int allocation;
 
     @ManyToOne
     @JoinColumn(name = "content_id")

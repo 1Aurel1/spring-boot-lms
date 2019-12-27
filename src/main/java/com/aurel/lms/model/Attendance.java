@@ -9,19 +9,19 @@ import java.util.Set;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-public class Objective extends AbstractAuditingEntity {
+public class Attendance extends AbstractAuditingEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String title;
-
-    private String criteria;
-
-    private int allocation;
+    private String memo;
 
     @ManyToOne
-    @JoinColumn(name = "content_id")
-    private Content content;
+    @JoinColumn(name = "lesson_id")
+    private Lesson lesson;
+
+    @ManyToOne
+    @JoinColumn(name = "participant_id")
+    private User participant;
 }

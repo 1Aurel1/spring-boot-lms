@@ -4,24 +4,26 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-public class Objective extends AbstractAuditingEntity {
+public class Notice extends AbstractAuditingEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String title;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
-    private String criteria;
-
-    private int allocation;
+    private String message;
 
     @ManyToOne
-    @JoinColumn(name = "content_id")
-    private Content content;
+    @JoinColumn
+    private User manager;
+
+    @ManyToOne
+    @JoinColumn
+    private Course course;
 }

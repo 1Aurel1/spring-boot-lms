@@ -1,8 +1,9 @@
 package com.aurel.lms.model;
 
 import com.aurel.lms.model.authority.Authority;
-import com.aurel.lms.model.authority.AuthorityName;
+import com.aurel.lms.model.file.ImageFile;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.util.Set;
 
 @Data
 @Entity
+@EqualsAndHashCode(callSuper = true)
 public class User extends AbstractAuditingEntity {
 
     @Id
@@ -22,6 +24,9 @@ public class User extends AbstractAuditingEntity {
 
     @Column
     private String password;
+
+    @Column
+    private String langKey;
 
     @NaturalId
     private String email;
@@ -49,6 +54,14 @@ public class User extends AbstractAuditingEntity {
                 joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
                 inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<Authority> authorities;
+
+    @OneToOne
+    @JoinColumn
+    private ImageFile profileImage;
+
+    @ManyToMany
+    @JoinTable
+    private Set<Course> courses;
 
     public User() {
         authorities = new HashSet<>();

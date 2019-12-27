@@ -19,8 +19,8 @@ public class Lesson extends AbstractAuditingEntity {
     @Column
     private int displayOrder;
 
-    @Column
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     @Column
     private Date attendanceStartAt;
@@ -28,6 +28,10 @@ public class Lesson extends AbstractAuditingEntity {
     @Column
     private Date attendanceEndAt;
 
+    @OneToMany(mappedBy = "lesson")
+    private Set<Attendance> attendances;
+
     @ManyToMany
+    @JoinTable
     private Set<Course> courses;
 }

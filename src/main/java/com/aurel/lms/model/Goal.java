@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Entity
@@ -16,4 +17,8 @@ public class Goal extends AbstractAuditingEntity {
 
     @Column
     private String title;
+
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+    private Course course;
 }

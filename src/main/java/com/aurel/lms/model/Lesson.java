@@ -1,5 +1,6 @@
 package com.aurel.lms.model;
 
+import com.aurel.lms.model.courseLesson.CourseLesson;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -29,9 +30,17 @@ public class Lesson extends AbstractAuditingEntity {
     private Date attendanceEndAt;
 
     @OneToMany(mappedBy = "lesson")
+    private Set<GoalObjectives> goalObjectives;
+
+    @OneToMany(mappedBy = "lesson")
     private Set<Attendance> attendances;
 
+    @OneToMany(mappedBy = "lesson")
+    private Set<CourseLesson> courses;
+
     @ManyToMany
-    @JoinTable
-    private Set<Course> courses;
+    @JoinTable( name = "content_lesson",
+                joinColumns = @JoinColumn(name = "content_id", referencedColumnName = "id"),
+                inverseJoinColumns = @JoinColumn(name = "lesson_id", referencedColumnName = "id"))
+    private Set<Content> contents;
 }

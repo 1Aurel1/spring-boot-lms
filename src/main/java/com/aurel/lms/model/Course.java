@@ -1,5 +1,7 @@
 package com.aurel.lms.model;
 
+import com.aurel.lms.model.courseLesson.CourseLesson;
+import com.aurel.lms.model.courseUser.CourseUser;
 import com.aurel.lms.model.file.ImageFile;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -38,11 +40,11 @@ public class Course extends AbstractAuditingEntity {
     private boolean enabled;
 
     @OneToOne
-    @JoinColumn
+    @JoinColumn(name = "image_id")
     private ImageFile image;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "term_id")
     private Term term;
 
     @OneToMany(mappedBy = "course")
@@ -51,29 +53,11 @@ public class Course extends AbstractAuditingEntity {
     @OneToMany(mappedBy = "course")
     private Set<Notice> notices;
 
-    @ManyToMany
-    @JoinTable(name = "course_manager")
-    private Set<User> managers;
+    @OneToMany(mappedBy = "course")
+    private Set<CourseUser> users;
 
-    @ManyToMany
-    @JoinTable
-    private Set<User> assistants;
-
-    @ManyToMany
-    @JoinTable
-    private Set<User> learners;
-
-    @ManyToMany
-    @JoinTable
-    private Set<Content> contents;
-
-    @ManyToMany
-    @JoinTable
-    private Set<Lesson> lessons;
-
-    @ManyToMany
-    @JoinTable
-    private Set<Lesson> openLessons;
+    @OneToMany(mappedBy = "course")
+    private Set<CourseLesson> lessons;
 
     //TODO outcomes, notes
 }

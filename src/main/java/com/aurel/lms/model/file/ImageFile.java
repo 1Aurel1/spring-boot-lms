@@ -15,6 +15,6 @@ public class ImageFile extends File {
     }
 
     public String getMedium(){
-        return super.getFileURL() + FileConstants.THUMBNAIL + super.getFileName();
+        return super.getFileURL() + FileConstants.MEDIUM + super.getFileName();
     }
 }

@@ -28,6 +28,6 @@ public class Term extends AbstractAuditingEntity {
     @Column
     private String guid;
 
-    @OneToMany
+    @OneToMany(mappedBy = "term")
     Set<Course> courses;
 }

@@ -20,10 +20,10 @@ public class Notice extends AbstractAuditingEntity {
     private String message;
 
     @ManyToOne
-    @JoinColumn
-    private User manager;
+    @JoinColumn(name = "userr_id")
+    private User user;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "course_id")
     private Course course;
 }

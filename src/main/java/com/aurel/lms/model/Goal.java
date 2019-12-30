@@ -21,4 +21,5 @@ public class Goal extends AbstractAuditingEntity {
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Course course;
+
 }

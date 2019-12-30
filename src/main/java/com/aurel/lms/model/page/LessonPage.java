@@ -1,21 +1,22 @@
 package com.aurel.lms.model.page;
 
+import com.aurel.lms.model.Content;
 import com.aurel.lms.model.file.File;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import java.util.Set;
+import javax.persistence.*;
 
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-public class LessonPage extends Page{
+public class LessonPage extends File {
 
-    private int displayOrder;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-    @OneToOne
-    private File pageFile;
+    @ManyToOne
+    @JoinColumn(name = "content_id")
+    private Content content;
 }

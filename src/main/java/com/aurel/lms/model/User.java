@@ -1,6 +1,7 @@
 package com.aurel.lms.model;
 
 import com.aurel.lms.model.authority.Authority;
+import com.aurel.lms.model.courseUser.CourseUser;
 import com.aurel.lms.model.file.ImageFile;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,7 +18,7 @@ public class User extends AbstractAuditingEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
     @NaturalId
     private String username;
@@ -59,9 +60,17 @@ public class User extends AbstractAuditingEntity {
     @JoinColumn
     private ImageFile profileImage;
 
-    @ManyToMany
-    @JoinTable
-    private Set<Course> courses;
+    @OneToMany(mappedBy = "participant")
+    private Set<Attendance> attendances;
+
+    @OneToMany(mappedBy = "owner")
+    private Set<Content> contents;
+
+    @OneToMany(mappedBy = "user")
+    private Set<CourseUser> courses;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Notice> notices;
 
     public User() {
         authorities = new HashSet<>();

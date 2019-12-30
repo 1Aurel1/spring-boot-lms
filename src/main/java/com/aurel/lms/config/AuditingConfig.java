@@ -34,6 +34,6 @@ class SpringSecurityAuditAwareImpl implements AuditorAware<Long>{
 
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
 
-        return Optional.ofNullable(userPrincipal.getId());
+        return Optional.of((long) userPrincipal.getId());
     }
 }

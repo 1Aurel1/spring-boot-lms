@@ -24,4 +24,10 @@ public class Objective extends AbstractAuditingEntity {
     @ManyToOne
     @JoinColumn(name = "content_id")
     private Content content;
+
+    @ManyToMany
+    @JoinTable( name = "goalobjectives_objective",
+            joinColumns = @JoinColumn(name = "goalobjective_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "objective_id", referencedColumnName = "id"))
+    private Set<GoalObjectives> goalObjectives;
 }

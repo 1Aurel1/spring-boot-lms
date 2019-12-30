@@ -4,6 +4,28 @@ target/
 !**/src/main/**
 !**/src/test/**
 
+######################
+# Project Specific
+######################
+/src/main/webapp/content/css/main.css
+/target/classes/static/**
+/src/test/javascript/coverage/
+
+######################
+# Node
+######################
+/node/
+node_tmp/
+node_modules/
+npm-debug.log.*
+/.awcache/*
+/.cache-loader/*
+
+######################
+# SASS
+######################
+.sass-cache/
+
 ### STS ###
 .apt_generated
 .classpath

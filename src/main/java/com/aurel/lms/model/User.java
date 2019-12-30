@@ -51,7 +51,7 @@ public class User extends AbstractAuditingEntity {
     private boolean accountNonLocked;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable( name = "user_role",
+        @JoinTable( name = "authority_user",
                 joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
                 inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<Authority> authorities;

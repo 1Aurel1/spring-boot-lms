@@ -2,12 +2,14 @@ package com.aurel.lms.service;
 
 import com.aurel.lms.model.User;
 import com.aurel.lms.repository.UserRepository;
+import com.aurel.lms.security.UserPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 @Service
 public class JWTUserDetailsService implements UserDetailsService {
@@ -21,8 +23,7 @@ public class JWTUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
-
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), new ArrayList<>());
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format("User not found with this username or email: %s", username)));
+        return UserPrincipal.create(user);
     }
 }

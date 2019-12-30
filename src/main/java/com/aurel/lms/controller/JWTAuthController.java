@@ -1,7 +1,7 @@
 package com.aurel.lms.controller;
 
-import com.aurel.lms.dto.request.auth.UserAuthenticationRequest;
-import com.aurel.lms.dto.request.auth.UserRegistrationRequest;
+import com.aurel.lms.service.dto.request.auth.UserAuthenticationRequest;
+import com.aurel.lms.service.dto.request.auth.UserRegistrationRequest;
 import com.aurel.lms.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

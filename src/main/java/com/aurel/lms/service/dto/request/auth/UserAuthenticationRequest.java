@@ -1,4 +1,4 @@
-package com.aurel.lms.dto.request.auth;
+package com.aurel.lms.service.dto.request.auth;
 
 import lombok.Data;
 

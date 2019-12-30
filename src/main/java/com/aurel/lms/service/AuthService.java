@@ -1,10 +1,10 @@
 package com.aurel.lms.service;
 
-import com.aurel.lms.dto.UserDTO;
-import com.aurel.lms.dto.response.ARConstants;
-import com.aurel.lms.dto.request.auth.UserAuthenticationRequest;
-import com.aurel.lms.dto.request.auth.UserRegistrationRequest;
-import com.aurel.lms.dto.response.ApiResponse;
+import com.aurel.lms.service.dto.response.UserDTO;
+import com.aurel.lms.service.dto.response.ARConstants;
+import com.aurel.lms.service.dto.request.auth.UserAuthenticationRequest;
+import com.aurel.lms.service.dto.request.auth.UserRegistrationRequest;
+import com.aurel.lms.service.dto.response.ApiResponse;
 import com.aurel.lms.exeption.ResourceNotFoundException;
 import com.aurel.lms.model.User;
 import com.aurel.lms.model.authority.AuthorityName;
@@ -19,6 +19,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -57,7 +59,7 @@ public class AuthService {
         user.setAccountNonLocked(true);
         user.setCredentialsNonExpired(true);
 
-        user.addAuthority(authorityRepository.findByName(AuthorityName.AUTHORITY_STUDENT).orElseThrow(() -> new ResourceNotFoundException("Authority", "name", AuthorityName.AUTHORITY_STUDENT.toString())));
+        user.addAuthority(authorityRepository.findByName(AuthorityName.USER).orElseThrow(() -> new ResourceNotFoundException("Authority", "name", AuthorityName.USER.toString())));
 
         System.out.println(newUser);
 
@@ -79,11 +81,11 @@ public class AuthService {
 
         System.out.println(authRequest);
 
-        authenticate(authRequest.getUsername(), authRequest.getPassword());
+        Authentication authentication = authenticate(authRequest.getUsername(), authRequest.getPassword());
 
-        System.out.println("Here i am");
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String jwt = jwtProvider.generateToken(jwtUserDetailsService.loadUserByUsername(authRequest.getUsername()));
+        String jwt = jwtProvider.generateToken(authentication);
 
         ApiResponse response = new ApiResponse();
         response.setStatus(ARConstants.success);
@@ -95,9 +97,9 @@ public class AuthService {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    private void authenticate(String username, String password) throws Exception {
+    private Authentication authenticate(String username, String password) throws Exception {
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+            return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         } catch (DisabledException e) {
             throw new Exception("USER_DISABLED", e);
         } catch (BadCredentialsException e) {

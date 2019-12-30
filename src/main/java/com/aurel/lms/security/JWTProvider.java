@@ -1,11 +1,12 @@
 package com.aurel.lms.security;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +18,8 @@ import java.util.function.Function;
 @Component
 public class JWTProvider {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(JWTProvider.class);
+
     private static int JWT_VALIDITY_IN_MS = 3600000;
 
     private static String secret = "verySecret";
@@ -27,17 +30,38 @@ public class JWTProvider {
     }
 
     //generate token for user
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(Authentication authentication) {
 
         Map<String, Object> claims = new HashMap<>();
-        return doGenerateToken(claims, userDetails.getUsername());
+        System.out.println("authentication name: " + authentication.getName());
+        return doGenerateToken(claims, authentication.getName());
     }
 
-    //validate token
-    public Boolean validateToken(String token, UserDetails userDetails) {
+    public String getUserIdFromJWT(String token){
+        Claims claims = Jwts.parser()
+                .setSigningKey(secret)
+                .parseClaimsJws(token)
+                .getBody();
 
-        final String username = getUsernameFromToken(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        return claims.getSubject();
+    }
+
+    public boolean validateToken(String authToken){
+        try{
+            Jwts.parser().setSigningKey(secret).parseClaimsJws(authToken);
+            return true;
+        } catch (SignatureException ex){
+            LOGGER.error("Invalid JWT signature");
+        } catch (MalformedJwtException ex){
+            LOGGER.error("Invalid JWT token");
+        } catch (ExpiredJwtException ex){
+            LOGGER.error("Expired JWT token");
+        } catch (UnsupportedJwtException ex){
+            LOGGER.error("Unsupported JWT token");
+        } catch (IllegalArgumentException ex){
+            LOGGER.error("JWT claims string is empty");
+        }
+        return false;
     }
 
     private <T> T getClaimFromToken(String token, Function<Claims, T> claimResolver){
@@ -56,13 +80,6 @@ public class JWTProvider {
     private Date getExpirationDateFromToken(String token){
 
         return getClaimFromToken(token, Claims::getExpiration);
-    }
-
-    //check if the token has expired
-    private Boolean isTokenExpired(String token) {
-
-        final Date expiration = getExpirationDateFromToken(token);
-        return expiration.before(new Date());
     }
 
     //while creating the token -

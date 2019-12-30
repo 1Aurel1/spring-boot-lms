@@ -1,13 +1,12 @@
-package com.aurel.lms.dto.request.auth;
+package com.aurel.lms.service.dto.response;
 
 import lombok.Data;
 
 @Data
-public class UserRegistrationRequest {
+public class UserDTO {
 
     private String firstName;
     private String lastName;
     private String username;
     private String email;
-    private String password;
 }

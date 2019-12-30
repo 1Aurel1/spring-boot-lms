@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -30,4 +31,16 @@ public class Term extends AbstractAuditingEntity {
 
     @OneToMany(mappedBy = "term")
     Set<Course> courses;
+
+    public Term() {
+        courses = new HashSet<>();
+    }
+
+    public void addCourse(Course course){
+        this.courses.add(course);
+    }
+
+    public void removeCourse(Course course){
+        this.courses.remove(course);
+    }
 }

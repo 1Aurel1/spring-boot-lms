@@ -1,4 +1,4 @@
-package com.aurel.lms.dto.response;
+package com.aurel.lms.service.dto.response;
 
 public class ARConstants {
 

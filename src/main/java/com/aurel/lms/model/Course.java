@@ -24,8 +24,8 @@ public class Course extends AbstractAuditingEntity {
     @Column
     private String overview;
 
-    @Column
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     @Column
     private int groupCount;

@@ -1,5 +1,6 @@
 package com.aurel.lms.model;
 
+import com.aurel.lms.model.course.Course;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

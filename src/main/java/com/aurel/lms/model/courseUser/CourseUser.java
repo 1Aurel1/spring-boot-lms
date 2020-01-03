@@ -1,6 +1,6 @@
 package com.aurel.lms.model.courseUser;
 
-import com.aurel.lms.model.Course;
+import com.aurel.lms.model.course.Course;
 import com.aurel.lms.model.User;
 import lombok.Data;
 

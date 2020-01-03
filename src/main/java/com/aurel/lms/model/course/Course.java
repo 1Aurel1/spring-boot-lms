@@ -1,10 +1,12 @@
-package com.aurel.lms.model;
+package com.aurel.lms.model.course;
 
+import com.aurel.lms.model.*;
 import com.aurel.lms.model.courseLesson.CourseLesson;
 import com.aurel.lms.model.courseUser.CourseUser;
 import com.aurel.lms.model.file.ImageFile;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -19,6 +21,7 @@ public class Course extends AbstractAuditingEntity {
     private int id;
 
     @Column
+    @NaturalId
     private String title;
 
     @Column
@@ -31,7 +34,8 @@ public class Course extends AbstractAuditingEntity {
     private int groupCount;
 
     @Column
-    private int weekDay;
+    @Enumerated(EnumType.STRING)
+    private WeekDay weekDay;
 
     @Column
     private int period;

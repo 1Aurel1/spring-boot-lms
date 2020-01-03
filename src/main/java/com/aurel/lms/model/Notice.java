@@ -1,5 +1,6 @@
 package com.aurel.lms.model;
 
+import com.aurel.lms.model.course.Course;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -20,7 +21,7 @@ public class Notice extends AbstractAuditingEntity {
     private String message;
 
     @ManyToOne
-    @JoinColumn(name = "userr_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne

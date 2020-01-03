@@ -16,6 +16,8 @@ public class LessonPage extends File {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private PageFileType pageFileType;
+
     @ManyToOne
     @JoinColumn(name = "content_id")
     private Content content;

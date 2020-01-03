@@ -21,4 +21,8 @@ public class DateConverter {
             return null;
         }
     }
+
+    public static String dateToFormat1(Date date) {
+        return formatter1.format(date);
+    }
 }

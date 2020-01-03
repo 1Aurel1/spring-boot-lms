@@ -1,6 +1,6 @@
 package com.aurel.lms.service;
 
-import com.aurel.lms.model.Course;
+import com.aurel.lms.model.course.Course;
 import com.aurel.lms.repository.CourseRepository;
 import com.aurel.lms.security.UserPrincipal;
 import com.aurel.lms.service.dto.request.course.CreateCourseRequest;

@@ -33,28 +33,29 @@ public class Content extends AbstractAuditingEntity {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private User owner;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
     @OneToMany(mappedBy = "content")
     private Set<AssetFile> assetFiles;
 
     @OneToMany(mappedBy = "content")
     private Set<AttachmentFile> attachmentFiles;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
     @OneToMany(mappedBy = "content")
     private Set<LessonPage> lessonPages;
+
+    @OneToMany(mappedBy = "content")
+    private Set<Objective> objectives;
 
     @ManyToMany
     @JoinTable( name = "content_lesson",
                 joinColumns = @JoinColumn(name = "lesson_id", referencedColumnName = "id"),
                 inverseJoinColumns = @JoinColumn(name = "content_id", referencedColumnName = "id"))
     private Set<Lesson> lessons;
-
-    @OneToMany(mappedBy = "content")
-    private Set<Objective> objectives;
-
-    @ManyToOne
-    @JoinColumn(name = "owner_id")
-    private User owner;
 }

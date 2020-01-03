@@ -1,8 +1,7 @@
 package com.aurel.lms.service.mapper;
 
-import com.aurel.lms.model.Course;
+import com.aurel.lms.model.course.Course;
 import com.aurel.lms.model.Term;
-import com.aurel.lms.repository.ContentRepository;
 import com.aurel.lms.repository.CourseRepository;
 import com.aurel.lms.service.dto.request.term.CreateTermRequest;
 import com.aurel.lms.util.DateConverter;

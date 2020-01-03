@@ -15,9 +15,9 @@ public abstract class File extends AbstractAuditingEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String fileName;
+    private String name;
 
-    private String fileURL;
+    private String URL;
 
     private String uploadContentType;
 

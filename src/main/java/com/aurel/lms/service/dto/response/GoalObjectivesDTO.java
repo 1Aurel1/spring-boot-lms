@@ -21,6 +21,7 @@ public class GoalObjectivesDTO {
 
         this.objectives = new HashSet<>();
         for (Objective objective: goalObjectives.getObjectives()){
+
             this.objectives.add(new ObjectiveDTO(objective));
         }
     }

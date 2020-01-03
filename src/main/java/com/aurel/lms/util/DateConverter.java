@@ -14,9 +14,12 @@ public class DateConverter {
     private static final SimpleDateFormat formatter6=new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
 
     public static Date format1ToDate(String springDate) {
+
         try {
+
             return formatter1.parse(springDate);
         } catch (ParseException e) {
+
             e.printStackTrace();
             return null;
         }

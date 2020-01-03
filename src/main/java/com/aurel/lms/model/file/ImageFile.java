@@ -11,10 +11,10 @@ import javax.persistence.Entity;
 public class ImageFile extends File {
 
     public String getThumbNail(){
-        return super.getFileURL() + FileConstants.THUMBNAIL + super.getFileName();
+        return super.getURL() + FileConstants.THUMBNAIL + super.getName();
     }
 
     public String getMedium(){
-        return super.getFileURL() + FileConstants.MEDIUM + super.getFileName();
+        return super.getURL() + FileConstants.MEDIUM + super.getName();
     }
 }

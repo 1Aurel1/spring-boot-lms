@@ -12,6 +12,7 @@ public class PageDTO {
     private PageFileType type;
 
     public PageDTO(LessonPage page) {
+
         this.id = page.getId();
         this.URL = page.getURL();
         this.type = page.getPageFileType();

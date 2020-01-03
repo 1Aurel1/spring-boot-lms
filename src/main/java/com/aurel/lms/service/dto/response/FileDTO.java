@@ -12,6 +12,7 @@ public class FileDTO {
     private String URL;
 
     public FileDTO(File file) {
+
         this.fileName = file.getName();
         this.URL = file.getURL();
     }

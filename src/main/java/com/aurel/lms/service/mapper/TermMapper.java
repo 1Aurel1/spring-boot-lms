@@ -27,15 +27,18 @@ public class TermMapper {
 
             return null;
         else {
+
             Term term = new Term();
             term.setTitle(request.getTitle());
             term.setStartAt(DateConverter.format1ToDate(request.getStartAt()));
             term.setEndAt(DateConverter.format1ToDate(request.getEndAt()));
             term.setGuid(request.getGuid());
+
             Set<Course> courses = new HashSet<>();
             if (request.getCourses() != null)
                 if (!request.getCourses().isEmpty())
                     courses = (Set<Course>) courseRepository.findAllById(request.getCourses());
+
             term.setCourses(courses);
 
             return term;

@@ -64,6 +64,7 @@ public class CourseDTO {
         for (CourseUser courseUser : course.getUsers()) {
 
             switch (courseUser.getType()){
+
                 case STUDENT:
                     this.students.add(new UserDTO(courseUser.getUser()));
                 case MANAGER:
@@ -72,6 +73,8 @@ public class CourseDTO {
                     this.assistants.add(new UserDTO(courseUser.getUser()));
                 case SUPERVISOR:
                     this.supervisors.add(new UserDTO(courseUser.getUser()));
+                default:
+                    break;
             }
         }
     }

@@ -8,7 +8,7 @@ public class CreateCourseRequest {
     private String title;
     private String overview;
     private String status;
-    private int weekDay;
+    private String weekDay;
     private int period;
     private boolean enabled;
 }

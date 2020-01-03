@@ -23,6 +23,7 @@ public class TermService {
 
     @Autowired
     public TermService(TermRepository termRepository, TermMapper termMapper) {
+
         this.termRepository = termRepository;
         this.termMapper = termMapper;
     }

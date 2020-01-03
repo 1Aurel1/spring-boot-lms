@@ -31,16 +31,19 @@ public class LessonDTO {
 
         this.goalObjectivesSet = new HashSet<>();
         for (GoalObjectives goalObjectives : lesson.getGoalObjectives()) {
+
             this.goalObjectivesSet.add(new GoalObjectivesDTO(goalObjectives));
         }
 
         this.attendances = new HashSet<>();
         for (Attendance attendance : lesson.getAttendances()) {
+
             this.attendances.add(new AttendanceDTO(attendance));
         }
 
         this.contents = new HashSet<>();
         for (Content content : lesson.getContents()) {
+
             this.contents.add(new ContentDTO(content));
         }
     }

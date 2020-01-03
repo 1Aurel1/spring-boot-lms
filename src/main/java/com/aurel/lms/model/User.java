@@ -21,6 +21,7 @@ public class User extends AbstractAuditingEntity {
     private int id;
 
     @NaturalId
+    @Column(unique = true)
     private String username;
 
     @Column
@@ -30,6 +31,7 @@ public class User extends AbstractAuditingEntity {
     private String langKey;
 
     @NaturalId
+    @Column(unique = true)
     private String email;
 
     @Column
@@ -50,15 +52,15 @@ public class User extends AbstractAuditingEntity {
     @Column
     private boolean accountNonLocked;
 
+    @OneToOne
+    @JoinColumn
+    private ImageFile profileImage;
+
     @ManyToMany(fetch = FetchType.EAGER)
         @JoinTable( name = "authority_user",
                 joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
                 inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<Authority> authorities;
-
-    @OneToOne
-    @JoinColumn
-    private ImageFile profileImage;
 
     @OneToMany(mappedBy = "participant")
     private Set<Attendance> attendances;
@@ -73,7 +75,12 @@ public class User extends AbstractAuditingEntity {
     private Set<Notice> notices;
 
     public User() {
-        authorities = new HashSet<>();
+
+        this.authorities = new HashSet<>();
+        this.attendances = new HashSet<>();
+        this.contents = new HashSet<>();
+        this.courses = new HashSet<>();
+        this.notices = new HashSet<>();
     }
 
     public void addAuthority(Authority authority){

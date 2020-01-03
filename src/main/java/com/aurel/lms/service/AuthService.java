@@ -25,6 +25,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 @Service
@@ -35,17 +36,16 @@ public class AuthService {
     private AuthenticationManager authenticationManager;
     private JWTProvider jwtProvider;
     private PasswordEncoder passwordEncoder;
-    private JWTUserDetailsService jwtUserDetailsService;
 
 
     @Autowired
-    public AuthService(UserRepository userRepository, AuthorityRepository authorityRepository, AuthenticationManager authenticationManager, JWTProvider jwtProvider, PasswordEncoder passwordEncoder, JWTUserDetailsService jwtUserDetailsService) {
+    public AuthService(UserRepository userRepository, AuthorityRepository authorityRepository, AuthenticationManager authenticationManager, JWTProvider jwtProvider, PasswordEncoder passwordEncoder) {
+
         this.userRepository = userRepository;
         this.authorityRepository = authorityRepository;
         this.authenticationManager = authenticationManager;
         this.jwtProvider = jwtProvider;
         this.passwordEncoder = passwordEncoder;
-        this.jwtUserDetailsService = jwtUserDetailsService;
     }
 
     public ResponseEntity<?> registerUser(UserRegistrationRequest newUser){
@@ -65,8 +65,7 @@ public class AuthService {
 
         user = userRepository.save(user);
 
-        UserDTO userDTO = new UserDTO();
-        BeanUtils.copyProperties(user, userDTO);
+        UserDTO userDTO = new UserDTO(user);
 
         ApiResponse response = new ApiResponse();
         response.setStatus(ARConstants.success);
@@ -98,11 +97,15 @@ public class AuthService {
     }
 
     private Authentication authenticate(String username, String password) throws Exception {
+
         try {
+
             return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         } catch (DisabledException e) {
+
             throw new Exception("USER_DISABLED", e);
         } catch (BadCredentialsException e) {
+
             throw new Exception("INVALID_CREDENTIALS", e);
         }
     }

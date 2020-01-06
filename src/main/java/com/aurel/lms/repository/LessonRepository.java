@@ -1,6 +1,6 @@
 package com.aurel.lms.repository;
 
-import com.aurel.lms.model.Lesson;
+import com.aurel.lms.model.lesson.Lesson;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

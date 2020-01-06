@@ -1,10 +1,12 @@
 package com.aurel.lms.service.dto.response;
 
-import com.aurel.lms.model.*;
+import com.aurel.lms.model.Goal;
+import com.aurel.lms.model.Notice;
+import com.aurel.lms.model.Status;
 import com.aurel.lms.model.course.Course;
 import com.aurel.lms.model.course.WeekDay;
-import com.aurel.lms.model.courseLesson.CourseLesson;
 import com.aurel.lms.model.courseUser.CourseUser;
+import com.aurel.lms.model.lesson.Lesson;
 import lombok.Data;
 
 import java.util.HashSet;
@@ -53,8 +55,8 @@ public class CourseDTO {
         }
 
         this.lessons = new HashSet<>();
-        for (CourseLesson courseLesson : course.getLessons()) {
-            this.lessons.add(new LessonDTO(courseLesson.getLesson()));
+        for (Lesson lesson : course.getLessons()) {
+            this.lessons.add(new LessonDTO(lesson));
         }
 
         this.students = new HashSet<>();

@@ -25,11 +25,13 @@ public class JWTAuthController {
 
     @PostMapping("/authenticate")
     public ResponseEntity<?> postAuth(@Valid @RequestBody UserAuthenticationRequest userAuthenticationRequest) throws Exception {
+
         return authService.authenticateUser(userAuthenticationRequest);
     }
 
     @PostMapping("/register")
     public ResponseEntity<?> postRegister(@Valid @RequestBody UserRegistrationRequest userRegistrationRequest){
+
         return authService.registerUser(userRegistrationRequest);
     }
 

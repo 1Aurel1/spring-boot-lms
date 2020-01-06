@@ -4,7 +4,7 @@ import com.aurel.lms.model.course.Course;
 import com.aurel.lms.model.Term;
 import com.aurel.lms.repository.CourseRepository;
 import com.aurel.lms.service.dto.request.term.CreateTermRequest;
-import com.aurel.lms.util.DateConverter;
+import com.aurel.lms.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +30,8 @@ public class TermMapper {
 
             Term term = new Term();
             term.setTitle(request.getTitle());
-            term.setStartAt(DateConverter.format1ToDate(request.getStartAt()));
-            term.setEndAt(DateConverter.format1ToDate(request.getEndAt()));
+            term.setStartAt(DateUtil.format1ToDate(request.getStartAt()));
+            term.setEndAt(DateUtil.format1ToDate(request.getEndAt()));
             term.setGuid(request.getGuid());
 
             Set<Course> courses = new HashSet<>();

@@ -3,8 +3,8 @@ package com.aurel.lms.service.dto.response;
 import com.aurel.lms.model.Attendance;
 import com.aurel.lms.model.Content;
 import com.aurel.lms.model.GoalObjectives;
-import com.aurel.lms.model.Lesson;
-import com.aurel.lms.util.DateConverter;
+import com.aurel.lms.model.lesson.Lesson;
+import com.aurel.lms.util.DateUtil;
 import lombok.Data;
 
 import java.util.HashSet;
@@ -26,8 +26,8 @@ public class LessonDTO {
 
         this.id = lesson.getId();
         this.displayOrder = lesson.getDisplayOrder();
-        this.attendanceStartAt = DateConverter.dateToFormat1(lesson.getAttendanceStartAt());
-        this.attendanceEndAt = DateConverter.dateToFormat1(lesson.getAttendanceEndAt());
+        this.attendanceStartAt = DateUtil.dateToFormat1(lesson.getAttendanceStartAt());
+        this.attendanceEndAt = DateUtil.dateToFormat1(lesson.getAttendanceEndAt());
 
         this.goalObjectivesSet = new HashSet<>();
         for (GoalObjectives goalObjectives : lesson.getGoalObjectives()) {

@@ -1,9 +1,9 @@
 package com.aurel.lms.model.course;
 
 import com.aurel.lms.model.*;
-import com.aurel.lms.model.courseLesson.CourseLesson;
 import com.aurel.lms.model.courseUser.CourseUser;
 import com.aurel.lms.model.file.ImageFile;
+import com.aurel.lms.model.lesson.Lesson;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.NaturalId;
@@ -62,7 +62,7 @@ public class Course extends AbstractAuditingEntity {
     private Set<CourseUser> users;
 
     @OneToMany(mappedBy = "course")
-    private Set<CourseLesson> lessons;
+    private Set<Lesson> lessons;
 
     //TODO outcomes, notes
 

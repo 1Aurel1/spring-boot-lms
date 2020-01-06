@@ -1,7 +1,7 @@
 package com.aurel.lms.service.dto.response;
 
 import com.aurel.lms.model.Content;
-import com.aurel.lms.model.Lesson;
+import com.aurel.lms.model.lesson.Lesson;
 import com.aurel.lms.model.Objective;
 import com.aurel.lms.model.Status;
 import com.aurel.lms.model.file.File;

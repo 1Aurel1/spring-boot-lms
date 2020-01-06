@@ -11,7 +11,7 @@ import com.aurel.lms.model.authority.AuthorityName;
 import com.aurel.lms.repository.AuthorityRepository;
 import com.aurel.lms.repository.UserRepository;
 import com.aurel.lms.security.JWTProvider;
-import org.springframework.beans.BeanUtils;
+import com.aurel.lms.service.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +25,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
 @Service
@@ -36,44 +35,34 @@ public class AuthService {
     private AuthenticationManager authenticationManager;
     private JWTProvider jwtProvider;
     private PasswordEncoder passwordEncoder;
-
+    private UserMapper userMapper;
 
     @Autowired
-    public AuthService(UserRepository userRepository, AuthorityRepository authorityRepository, AuthenticationManager authenticationManager, JWTProvider jwtProvider, PasswordEncoder passwordEncoder) {
+    public AuthService(UserRepository userRepository, AuthorityRepository authorityRepository, AuthenticationManager authenticationManager, JWTProvider jwtProvider, PasswordEncoder passwordEncoder, UserMapper userMapper) {
 
         this.userRepository = userRepository;
         this.authorityRepository = authorityRepository;
         this.authenticationManager = authenticationManager;
         this.jwtProvider = jwtProvider;
         this.passwordEncoder = passwordEncoder;
+        this.userMapper = userMapper;
     }
 
-    public ResponseEntity<?> registerUser(UserRegistrationRequest newUser){
+    public ResponseEntity<?> registerUser(UserRegistrationRequest request){
 
-        User user = new User();
-        BeanUtils.copyProperties(newUser, user);
+        User user = userMapper.userRegistrationRequestToUser(request);
 
-        user.setPassword(passwordEncoder.encode(newUser.getPassword()));
-        user.setEnabled(true);
-        user.setAccountNonExpired(true);
-        user.setAccountNonLocked(true);
-        user.setCredentialsNonExpired(true);
-
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.addAuthority(authorityRepository.findByName(AuthorityName.USER).orElseThrow(() -> new ResourceNotFoundException("Authority", "name", AuthorityName.USER.toString())));
 
-        System.out.println(newUser);
 
         user = userRepository.save(user);
 
         UserDTO userDTO = new UserDTO(user);
-
-        ApiResponse response = new ApiResponse();
-        response.setStatus(ARConstants.success);
         Map<String, UserDTO> data = new HashMap<>();
         data.put("user", userDTO);
-        response.setData(data);
 
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(new ApiResponse(ARConstants.success, data), HttpStatus.OK);
     }
 
     public ResponseEntity<?> authenticateUser(UserAuthenticationRequest authRequest) throws Exception {
@@ -86,14 +75,11 @@ public class AuthService {
 
         String jwt = jwtProvider.generateToken(authentication);
 
-        ApiResponse response = new ApiResponse();
-        response.setStatus(ARConstants.success);
         Map<String, String> data = new HashMap<>();
         data.put("Token Type", "Bearer");
         data.put("JWT", jwt);
-        response.setData(data);
 
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(new ApiResponse(ARConstants.success, data), HttpStatus.OK);
     }
 
     private Authentication authenticate(String username, String password) throws Exception {

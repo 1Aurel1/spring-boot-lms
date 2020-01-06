@@ -2,6 +2,7 @@ package com.aurel.lms.model;
 
 import com.aurel.lms.model.file.AssetFile;
 import com.aurel.lms.model.file.AttachmentFile;
+import com.aurel.lms.model.lesson.Lesson;
 import com.aurel.lms.model.page.LessonPage;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

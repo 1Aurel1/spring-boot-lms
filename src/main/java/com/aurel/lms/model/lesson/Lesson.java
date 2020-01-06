@@ -1,6 +1,7 @@
-package com.aurel.lms.model;
+package com.aurel.lms.model.lesson;
 
-import com.aurel.lms.model.courseLesson.CourseLesson;
+import com.aurel.lms.model.*;
+import com.aurel.lms.model.course.Course;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -25,6 +26,10 @@ public class Lesson extends AbstractAuditingEntity {
     private Status status;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private LessonType type;
+
+    @Column(nullable = false)
     private Date attendanceStartAt;
 
     @Column(nullable = false)
@@ -36,8 +41,9 @@ public class Lesson extends AbstractAuditingEntity {
     @OneToMany(mappedBy = "lesson")
     private Set<Attendance> attendances;
 
-    @OneToMany(mappedBy = "lesson")
-    private Set<CourseLesson> courses;
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+    private Course course;
 
     @ManyToMany
     @JoinTable( name = "content_lesson",
@@ -48,10 +54,10 @@ public class Lesson extends AbstractAuditingEntity {
     public Lesson() {
 
         this.status = Status.DRAFT;
+        this.type = LessonType.CLOSED;
 
         this.attendances = new HashSet<>();
         this.goalObjectives = new HashSet<>();
-        this.courses = new HashSet<>();
         this.contents = new HashSet<>();
     }
 }

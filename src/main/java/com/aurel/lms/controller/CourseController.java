@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/course")
 public class CourseController {
@@ -26,7 +28,10 @@ public class CourseController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('USER')")
-    public ResponseEntity<?> postCourse(@AuthenticationPrincipal UserPrincipal principal, @RequestBody CreateCourseRequest request){
+    public ResponseEntity<?> postCourse(
+            @AuthenticationPrincipal UserPrincipal principal,
+            @Valid @RequestBody CreateCourseRequest request){
+
         return courseService.newCourse(principal, request);
     }
 

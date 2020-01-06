@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/term")
 public class TermController {
@@ -25,7 +27,9 @@ public class TermController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('USER')")
-    public ResponseEntity<?> postTerm(@AuthenticationPrincipal UserPrincipal principal, @RequestBody CreateTermRequest request){
+    public ResponseEntity<?> postTerm(
+            @AuthenticationPrincipal UserPrincipal principal,
+            @Valid @RequestBody CreateTermRequest request){
 
         return termService.newTerm(principal, request);
     }

@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class DateConverter {
+public class DateUtil {
 
     private static final SimpleDateFormat formatter1=new SimpleDateFormat("dd/MM/yyyy");
     private static final SimpleDateFormat formatter2=new SimpleDateFormat("dd-MMM-yyyy");

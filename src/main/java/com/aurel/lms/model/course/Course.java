@@ -9,6 +9,7 @@ import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -20,8 +21,8 @@ public class Course extends AbstractAuditingEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column
     @NaturalId
+    @Column(length = 124, nullable = false)
     private String title;
 
     @Column
@@ -64,4 +65,13 @@ public class Course extends AbstractAuditingEntity {
     private Set<CourseLesson> lessons;
 
     //TODO outcomes, notes
+
+
+    public Course() {
+
+        this.goals = new HashSet<>();
+        this.notices = new HashSet<>();
+        this.users = new HashSet<>();
+        this.lessons = new HashSet<>();
+    }
 }

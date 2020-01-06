@@ -4,11 +4,19 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
+@Table(
+    uniqueConstraints = {
+        @UniqueConstraint(
+            name = "UK_goal_lesson",
+            columnNames = {"goal_id", "lesson_id"}
+    )
+})
 public class GoalObjectives extends AbstractAuditingEntity {
 
     @Id
@@ -16,7 +24,7 @@ public class GoalObjectives extends AbstractAuditingEntity {
     private int id;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "goal_id")
     private Goal goal;
 
     @ManyToOne
@@ -28,4 +36,9 @@ public class GoalObjectives extends AbstractAuditingEntity {
             joinColumns = @JoinColumn(name = "objective_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "goalobjective_id", referencedColumnName = "id"))
     private Set<Objective> objectives;
+
+    public GoalObjectives() {
+
+        this.objectives = new HashSet<>();
+    }
 }

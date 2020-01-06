@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -23,10 +24,10 @@ public class Lesson extends AbstractAuditingEntity {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @Column
+    @Column(nullable = false)
     private Date attendanceStartAt;
 
-    @Column
+    @Column(nullable = false)
     private Date attendanceEndAt;
 
     @OneToMany(mappedBy = "lesson")
@@ -43,4 +44,14 @@ public class Lesson extends AbstractAuditingEntity {
                 joinColumns = @JoinColumn(name = "content_id", referencedColumnName = "id"),
                 inverseJoinColumns = @JoinColumn(name = "lesson_id", referencedColumnName = "id"))
     private Set<Content> contents;
+
+    public Lesson() {
+
+        this.status = Status.DRAFT;
+
+        this.attendances = new HashSet<>();
+        this.goalObjectives = new HashSet<>();
+        this.courses = new HashSet<>();
+        this.contents = new HashSet<>();
+    }
 }

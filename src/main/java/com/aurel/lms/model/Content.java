@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -18,10 +19,10 @@ public class Content extends AbstractAuditingEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column
+    @Column(nullable = false)
     private String title;
 
-    @Column
+    @Column(unique = true, nullable = false)
     private String folderName;
 
     @Column(name = "c_condition")
@@ -58,4 +59,13 @@ public class Content extends AbstractAuditingEntity {
                 joinColumns = @JoinColumn(name = "lesson_id", referencedColumnName = "id"),
                 inverseJoinColumns = @JoinColumn(name = "content_id", referencedColumnName = "id"))
     private Set<Lesson> lessons;
+
+    public Content() {
+
+        this.assetFiles = new HashSet<>();
+        this.attachmentFiles = new HashSet<>();
+        this.lessonPages = new HashSet<>();
+        this.objectives = new HashSet<>();
+        this.lessons = new HashSet<>();
+    }
 }

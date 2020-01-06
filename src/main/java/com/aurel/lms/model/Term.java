@@ -3,6 +3,7 @@ package com.aurel.lms.model;
 import com.aurel.lms.model.course.Course;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -18,13 +19,14 @@ public class Term extends AbstractAuditingEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column
+    @NaturalId
+    @Column(nullable = false, unique = true)
     private String title;
 
-    @Column
+    @Column(nullable = false)
     private Date startAt;
 
-    @Column
+    @Column(nullable = false)
     private Date endAt;
 
     @Column
@@ -44,4 +46,6 @@ public class Term extends AbstractAuditingEntity {
     public void removeCourse(Course course){
         this.courses.remove(course);
     }
+
+
 }

@@ -18,6 +18,7 @@ public class Notice extends AbstractAuditingEntity {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @Column(nullable = false)
     private String message;
 
     @ManyToOne
@@ -27,4 +28,9 @@ public class Notice extends AbstractAuditingEntity {
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Course course;
+
+    public Notice() {
+
+        this.status = Status.OPEN;
+    }
 }

@@ -15,6 +15,7 @@ public class Authority {
 
     @Enumerated(EnumType.STRING)
     @NaturalId
+    @Column(unique = true, length = 16, updatable = false, nullable = false)
     private AuthorityName name;
 
 }

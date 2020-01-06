@@ -15,10 +15,13 @@ public abstract class File extends AbstractAuditingEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(nullable = false)
     private String name;
 
-    private String URL;
+    @Column(nullable = false)
 
+    private String URL;
+    @Column(nullable = false)
     private String uploadContentType;
 
     private String uploadFileSize;

@@ -2,8 +2,10 @@ package com.aurel.lms.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -16,6 +18,8 @@ public class Category extends AbstractAuditingEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NaturalId
+    @Column(unique = true)
     private String name;
 
     @ManyToOne
@@ -27,4 +31,10 @@ public class Category extends AbstractAuditingEntity {
 
     @OneToMany(mappedBy = "category")
     private Set<Content> contents;
+
+    public Category() {
+
+        this.subCategory = new HashSet<>();
+        this.contents = new HashSet<>();
+    }
 }

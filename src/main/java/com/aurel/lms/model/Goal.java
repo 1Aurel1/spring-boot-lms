@@ -21,7 +21,7 @@ public class Goal extends AbstractAuditingEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column
+    @Column(nullable = false)
     private String title;
 
     @ManyToOne

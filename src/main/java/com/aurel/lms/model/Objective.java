@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -15,6 +16,7 @@ public class Objective extends AbstractAuditingEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(nullable = false)
     private String title;
 
     private String criteria;
@@ -30,4 +32,9 @@ public class Objective extends AbstractAuditingEntity {
             joinColumns = @JoinColumn(name = "goalobjective_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "objective_id", referencedColumnName = "id"))
     private Set<GoalObjectives> goalObjectives;
+
+    public Objective() {
+
+        this.goalObjectives = new HashSet<>();
+    }
 }

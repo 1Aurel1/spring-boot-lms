@@ -1,7 +1,7 @@
 package com.aurel.lms.service.dto.request.course;
 
 import com.aurel.lms.model.courseUser.CourseUserType;
-import com.aurel.lms.validator.ValueOfEnum;
+import com.aurel.lms.validator.valOfEnum.ValueOfEnum;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;

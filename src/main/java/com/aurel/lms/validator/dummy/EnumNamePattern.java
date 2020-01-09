@@ -1,4 +1,4 @@
-package com.aurel.lms.validator;
+package com.aurel.lms.validator.dummy;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -12,11 +12,11 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RUNTIME)
 @Documented
-@Constraint(validatedBy = ValueOfEnumValidator.class)
-public @interface ValueOfEnum {
+@Constraint(validatedBy = EnumNamePatternValidator.class)
+public @interface EnumNamePattern {
 
-    Class<? extends Enum<?>> enumClass();
-    String message() default "must be any of enum {enumClass}";
+    String regexp();
+    String message() default "must match \"{regexp}\"";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

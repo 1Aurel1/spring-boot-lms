@@ -1,4 +1,4 @@
-package com.aurel.lms.validator;
+package com.aurel.lms.validator.dummy;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

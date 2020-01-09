@@ -1,4 +1,4 @@
-package com.aurel.lms.validator;
+package com.aurel.lms.validator.dummy;
 
 import com.aurel.lms.model.courseUser.CourseUserType;
 

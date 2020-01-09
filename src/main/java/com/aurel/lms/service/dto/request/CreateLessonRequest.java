@@ -1,10 +1,9 @@
 package com.aurel.lms.service.dto.request;
 
 import com.aurel.lms.model.Status;
-import com.aurel.lms.validator.ValueOfEnum;
+import com.aurel.lms.validator.valOfEnum.ValueOfEnum;
 import lombok.Data;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
